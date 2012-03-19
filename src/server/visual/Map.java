@@ -1,4 +1,4 @@
-package visual;
+package server.visual;
 
 import java.awt.Color;
 import java.awt.Graphics;

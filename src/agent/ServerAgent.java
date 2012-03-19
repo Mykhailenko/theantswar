@@ -7,7 +7,7 @@ import java.util.List;
 import agent.ant.RandomAnt;
 import model.AntModel;
 import model.StepDirection;
-import visual.GameFrame;
+import server.visual.GameFrame;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
