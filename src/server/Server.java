@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import server.model.AntCoockies;
+import server.model.HillCoockie;
 import server.model.Map;
 import server.visual.GFrame;
+import server.visual.GameFrame;
 import shared.MessageToServer;
 
 import jade.core.Agent;
@@ -15,8 +17,11 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 
 public class Server extends Agent{
+	public static final String gleb = "GLEB";
+	public static final String oleg = "OLEG";
 	private static final long serialVersionUID = 1L;
 	java.util.Map<String, AntCoockies> antCoockies = new HashMap<String, AntCoockies>();
+	java.util.Map<String, HillCoockie> hillCoockies = new HashMap<String, HillCoockie>();
 	GFrame gFrame ;
 	Map map;
 	char counter = 5;
@@ -24,6 +29,8 @@ public class Server extends Agent{
 	public static void main(String [] rgs){
 		String []args = {"-gui", "-local-host","127.0.0.1", "server:"+Server.class.getName()};
 		jade.Boot.main(args);
+		GFrame gFrame = new GameFrame();
+		gFrame.paint(new Map());
 	}
 	@Override
 	protected void setup() {
