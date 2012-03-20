@@ -1,12 +1,13 @@
 package server;
 
 import server.model.Cell;
+import server.model.Cell.Type;
 import server.model.Map;
 
 public class CellCreator {
 	public static Cell [][] createDedaultCells(){
-		int width = 10	;
-		int height = 10;
+		int width = 100	;
+		int height = 100;
 		Cell [][] ola = fillEmpty(width, height);
 		makeBorder(ola);
 		return ola;

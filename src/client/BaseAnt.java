@@ -1,5 +1,7 @@
 package client;
 
-public class BaseAnt {
+import jade.core.Agent;
+
+public class BaseAnt extends Agent{
 
 }

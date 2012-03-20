@@ -17,7 +17,8 @@ public class Cell {
 			
 		};
 	}
-	private String entity;
+	private String antName;
+	private String playerName;
 	private Type type;
 	@Override
 	public String toString() {
@@ -26,30 +27,17 @@ public class Cell {
 	public Cell() {
 		type = Type.FREE;
 	}
-	public String getAntName() throws Exception {
-		if(this.type != Type.ANT && this.type != Type.ANT_HILL){
-			throw new Exception();
-		}
-		return entity;
+	public String getAntName() {
+		return antName;
 	}
-
-	public void setAntName(String antName) throws Exception {
-		if(this.type != Type.ANT && this.type != Type.ANT_HILL){
-			throw new Exception();
-		}
-		this.entity = antName;
+	public void setAntName(String antName) {
+		this.antName = antName;
 	}
-	public String getHillName() throws Exception{
-		if(this.type != Type.HILL && this.type != Type.ANT_HILL){
-			throw new Exception();
-		}
-		return entity;
+	public String getPlayerName() {
+		return playerName;
 	}
-	public void setHillName(String hillName) throws Exception{
-		if(this.type != Type.HILL && this.type != Type.ANT_HILL){
-			throw new Exception();
-		}
-		this.entity = hillName;
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 	public Type getType() {
 		return type;

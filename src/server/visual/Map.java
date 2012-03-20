@@ -16,7 +16,7 @@ public class Map extends JPanel{
 	private Color lineColor = Color.BLACK;
 	public Map() {
 		model = new server.model.Map();
-		setSize(cellWidth * 100, cellHeight * 100);
+		setSize(500, 500);
 		setBackground(backgroundColor);
 		
 	}
@@ -34,19 +34,19 @@ public class Map extends JPanel{
 		
 		int width = wcount * cellWidth;
 		int height = hcount * cellHeight;
-		g.setColor(Color.RED);
+		for(int i = 0; i < model.getW(); ++i){
+			for(int j = 0; j < model.getH(); ++j){
+				g.setColor(getColorForCell(model.getCells()[i][j]));
+				g.fillRect(j*cellHeight, i*cellWidth,  cellWidth, cellHeight);
+			}
+		}
+		g.setColor(Color.LIGHT_GRAY);
 		
 		for(int i = 0; i < wcount; ++i){
 			g.drawLine(cellWidth * i, 0, cellWidth * i, height);
 		}
 		for(int i = 0; i < hcount; ++i){
 			g.drawLine(0, cellHeight * i, width, cellHeight * i);
-		}
-		for(int i = 0; i < model.getW(); ++i){
-			for(int j = 0; j < model.getH(); ++j){
-				g.setColor(getColorForCell(model.getCells()[i][j]));
-				g.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
-			}
 		}
 	}
 	private Color getColorForCell(Cell cell) {
@@ -57,7 +57,7 @@ public class Map extends JPanel{
 		case ANT_HILL:
 			return Color.RED;
 		case HILL:
-			return Color.YELLOW;
+			return Color.BLUE;
 		case FOOD:
 			return Color.GREEN;
 		case WALL:

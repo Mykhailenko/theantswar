@@ -13,7 +13,7 @@ public class GameFrame extends JFrame implements GFrame{
 		setLayout(null);
 		setTitle("The Ant Wars");
 		setResizable(false);
-		setBounds(100, 100, 400, 450);
+		setBounds(100, 100, 450, 500);
 		setVisible(true);
 		map = new Map();
 		map.setLocation(0, 30);
