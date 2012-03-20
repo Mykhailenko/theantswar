@@ -1,6 +1,7 @@
 package server.model;
 
+
 public class Map {
-	private CellType [][] cells;
+	private Cell [][] cells;
 	
 }

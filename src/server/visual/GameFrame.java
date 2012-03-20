@@ -20,6 +20,7 @@ public class GameFrame extends JFrame{
 		map.setLocation(0, 30);
 		add(map);
 	}
+	
 	public Map getMap() {
 		return map;
 	}
