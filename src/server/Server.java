@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import client.BaseAnt;
+
 import server.model.AntCoockies;
 import server.model.HillCoockie;
 import server.model.Map;
@@ -19,11 +21,13 @@ import jade.lang.acl.UnreadableException;
 public class Server extends Agent{
 	public static final String gleb = "GLEB";
 	public static final String oleg = "OLEG";
+	public static final String glebAgentClassName = BaseAnt.class.getName();
+	public static final String olegAgentClassName = BaseAnt.class.getName();
 	private static final long serialVersionUID = 1L;
 	java.util.Map<String, AntCoockies> antCoockies = new HashMap<String, AntCoockies>();
 	java.util.Map<String, HillCoockie> hillCoockies = new HashMap<String, HillCoockie>();
 	GFrame gFrame ;
-	Map map;
+	Map staicMap;
 	char counter = 5;
 	public static final int INTERVAL = 1000;
 	public static void main(String [] rgs){
@@ -88,7 +92,7 @@ public class Server extends Agent{
 
 			private void checkAndMaybePaintMap(){
 				if(counter == 0){
-					gFrame.paint(map);
+					gFrame.paint(staicMap);
 					counter = 5;
 				}else{
 					--counter;

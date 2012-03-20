@@ -6,6 +6,7 @@ import server.CellCreator;
 public class Map {
 	public Map() {
 		cells = CellCreator.createDedaultCells();
+		CellCreator.print(cells);
 	}
 	private Cell [][] cells;
 	public int getW(){

@@ -5,13 +5,20 @@ import server.model.Map;
 
 public class CellCreator {
 	public static Cell [][] createDedaultCells(){
-		int width = 100;
-		int height = 100;
+		int width = 10	;
+		int height = 10;
 		Cell [][] ola = fillEmpty(width, height);
 		makeBorder(ola);
 		return ola;
 	}
-	
+	public static void print(Cell[][] cells){
+		for(Cell [] row :cells){
+			for(Cell c : row){
+				System.out.print(c);
+			}
+			System.out.println();
+		}
+	}
 	private static void makeBorder(Cell[][] ola) {
 		int i, j;
 		

@@ -7,10 +7,6 @@ import javax.swing.JPanel;
 
 import server.model.Cell;
 
-import model.AntModel;
-import model.MapModel;
-
-
 public class Map extends JPanel{
 //	private MapModel model;
 	private server.model.Map model;
@@ -20,7 +16,7 @@ public class Map extends JPanel{
 	private Color lineColor = Color.BLACK;
 	public Map() {
 		model = new server.model.Map();
-		setSize(cellWidth * model.getW(), cellHeight * model.getH());
+		setSize(cellWidth * 100, cellHeight * 100);
 		setBackground(backgroundColor);
 		
 	}
@@ -65,8 +61,9 @@ public class Map extends JPanel{
 		case FOOD:
 			return Color.GREEN;
 		case WALL:
-		default:
 			return Color.BLACK;
+		default:
+			return Color.ORANGE;
 		}
 	}
 //	private void drawAnts(Graphics g) {

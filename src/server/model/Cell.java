@@ -3,9 +3,26 @@ package server.model;
 public class Cell {
 	public enum Type{ 
 		FREE, WALL, FOOD, ANT, HILL, ANT_HILL;
+		public String toString() {
+			switch (this) {
+			case FREE:
+				return "<free>";
+			case WALL:
+				return "<wall>";
+			case ANT:
+				return "<ant>";
+			default:
+				return "<else>";
+			}
+			
+		};
 	}
 	private String entity;
 	private Type type;
+	@Override
+	public String toString() {
+		return type.toString();
+	}
 	public Cell() {
 		type = Type.FREE;
 	}

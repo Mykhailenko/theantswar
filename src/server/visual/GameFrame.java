@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import model.AntModel;
-
 public class GameFrame extends JFrame implements GFrame{
 	private Map map;
 	public GameFrame() {
