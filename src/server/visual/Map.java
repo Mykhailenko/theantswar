@@ -32,12 +32,14 @@ public class Map extends JPanel{
 	
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("in paint");
 		int wcount = model.getW();
 		int hcount = model.getH();
+		System.out.println("in paint " + wcount);
+		
 		int width = wcount * cellWidth;
 		int height = hcount * cellHeight;
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.RED);
+		
 		for(int i = 0; i < wcount; ++i){
 			g.drawLine(cellWidth * i, 0, cellWidth * i, height);
 		}
