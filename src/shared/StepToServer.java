@@ -1,9 +1,11 @@
 package shared;
 
-import java.io.Serializable;
-
 import server.model.StepDirection;
-
+/**
+ * Ход муравьём в какую-то сторону. Не ждет ответа от сервера.
+ * @author RedFox
+ *
+ */
 public class StepToServer implements MessageToServer {
 	private static final long serialVersionUID = 433826977551649066L;
 	private StepDirection stepDirection;

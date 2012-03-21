@@ -66,11 +66,4 @@ public class Map extends JPanel{
 			return Color.ORANGE;
 		}
 	}
-//	private void drawAnts(Graphics g) {
-//		for(AntModel antModel : model.getAnts()){
-//			g.setColor(antModel.getColor());
-//			g.fillRect(antModel.getX()*cellWidth, antModel.getY()*cellHeight, cellWidth, cellHeight);
-//		}
-//	}
-	
 }

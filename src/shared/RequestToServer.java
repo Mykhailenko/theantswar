@@ -1,23 +1,18 @@
 package shared;
 
-import java.io.Serializable;
+/**
+ * Запрос муравьём окрестности. Сервер возвращает объект типа ResponseFromServer
+ * @author RedFox
+ *
+ */
+public class RequestToServer implements MessageToServer{
+	private static final long serialVersionUID = 562221041147970688L;
 
-import server.model.StepDirection;
-
-public class RequestToServer implements Serializable{
-	private StepDirection step;
-
-	public RequestToServer(String step) {
-		super();
-		this.step = StepDirection.fromString(step);
+	public RequestToServer() {
 	}
-
-	public StepDirection getStep() {
-		return step;
-	}
-
-	public void setStep(StepDirection step) {
-		this.step = step;
+	@Override
+	public Type getType() {
+		return Type.REQUEST;
 	}
 	
 }

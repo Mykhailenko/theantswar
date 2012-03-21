@@ -1,4 +1,4 @@
-package shared;
+package client.oleg;
 
 import java.io.Serializable;
 
