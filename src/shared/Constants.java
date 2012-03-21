@@ -1,4 +1,4 @@
-package server.model;
+package shared;
 
 import client.BaseAnt;
 

@@ -2,9 +2,9 @@ package server;
 
 import server.model.AntCoockie;
 import server.model.Cell;
-import server.model.Constants;
 import server.model.GameBag;
 import server.visual.GFrame;
+import shared.Constants;
 import shared.MessageToServer;
 import shared.StepToServer;
 import jade.core.Agent;
@@ -16,11 +16,13 @@ import jade.wrapper.StaleProxyException;
 public class MainBehavior extends CyclicBehaviour {
 	private static final long serialVersionUID = 538601823417067372L;
 	private Agent agent;
-	private char counter;
+	private char repaintCounter;
+	private char throwFoodCounter;
 	private GameBag gameBag;
 	private GFrame gFrame;
 	public MainBehavior(Agent agent, GameBag gameBag, GFrame gFrame) {
-		this.counter = 0;
+		this.repaintCounter = 0;
+		this.throwFoodCounter = 0;
 		this.agent = agent;
 		this.gameBag = gameBag;
 		this.gFrame = gFrame;
@@ -45,12 +47,12 @@ public class MainBehavior extends CyclicBehaviour {
 				} catch (UnreadableException e) {
 					e.printStackTrace();
 				}
+				int x = coockie.getX();
+				int y = coockie.getY();
 				if(mts.isRequest()){
 					
 				}else if(mts.isStep()){
 					StepToServer sts = (StepToServer) mts;
-					int x = coockie.getX();
-					int y = coockie.getY();
 					
 					switch (sts.getStepDirection()) {
 					case DOWN:
@@ -85,11 +87,21 @@ public class MainBehavior extends CyclicBehaviour {
 					
 				}
 				checkAndMaybePaintMap();
+				checkAndMaybeThrowFood();
 			}
 		}
 		block();
 	}
 
+	private void checkAndMaybeThrowFood() {
+		if(throwFoodCounter == 0){
+			
+			throwFoodCounter = 5;
+		}else{
+			--throwFoodCounter;
+		}
+		
+	}
 	private boolean badCoordinates(int x, int y){
 		if(0 <= x && x <= Constants.MAP_SIZE &&
 				0 <= y && y <= Constants.MAP_SIZE){
@@ -137,13 +149,13 @@ public class MainBehavior extends CyclicBehaviour {
 	}
 
 	private void checkAndMaybePaintMap(){
-		if(counter == 0){
+		if(repaintCounter == 0){
 			//////////////
 			//////////////
 			gFrame.paint(gameBag.getStaticMap());
-			counter = 5;
+			repaintCounter = 5;
 		}else{
-			--counter;
+			--repaintCounter;
 		}
 	}
 }

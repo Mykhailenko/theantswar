@@ -5,12 +5,12 @@ import java.util.HashMap;
 import server.model.AntCoockie;
 import server.model.Cell;
 import server.model.Cell.Type;
-import server.model.Constants;
 import server.model.GameBag;
 import server.model.HillCoockie;
 import server.model.Map;
 import server.visual.GFrame;
 import server.visual.GameFrame;
+import shared.Constants;
 import jade.core.Agent;
 
 public class Server extends Agent{

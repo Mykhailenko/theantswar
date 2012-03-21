@@ -1,9 +1,9 @@
 package server;
 
 import server.model.AntCoockie;
-import server.model.Constants;
 import server.model.GameBag;
 import server.model.HillCoockie;
+import shared.Constants;
 
 import jade.core.behaviours.OneShotBehaviour;
 import jade.wrapper.AgentController;

@@ -1,7 +1,7 @@
 package server;
 
 import server.model.Cell;
-import server.model.Constants;
+import shared.Constants;
 
 public class CellCreator {
 	public static Cell [][] createDedaultCells(){
