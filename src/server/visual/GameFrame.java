@@ -1,13 +1,10 @@
 package server.visual;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.TextField;
-import java.util.List;
 
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame implements GFrame{
+	private static final long serialVersionUID = 4501676717595892172L;
 	private Map map;
 	public GameFrame() {
 		setLayout(null);

@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 // Класс запроса муравья к муравью . 
 public class RequestToAnt implements Serializable{
+	private static final long serialVersionUID = 8566215524829631394L;
 	private String message;
 
 	public RequestToAnt(String message) {

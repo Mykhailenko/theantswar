@@ -5,7 +5,6 @@ import server.model.Cell;
 import server.model.Constants;
 import server.model.GameBag;
 import server.visual.GFrame;
-import server.visual.GameFrame;
 import shared.MessageToServer;
 import shared.StepToServer;
 import jade.core.Agent;

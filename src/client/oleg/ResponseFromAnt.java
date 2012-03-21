@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ResponseFromAnt implements Serializable{
+	private static final long serialVersionUID = 5643163076990964526L;
 	private String inMessage;
 	private Map<String,Object> answer = new HashMap<String,Object>();
 	

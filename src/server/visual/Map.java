@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import server.model.Cell;
 
 public class Map extends JPanel{
-//	private MapModel model;
+	private static final long serialVersionUID = -5727672996310615106L;
 	private server.model.Map model;
 	private int cellWidth = 4;
 	private int cellHeight = 4;
@@ -40,7 +40,7 @@ public class Map extends JPanel{
 				g.fillRect(j*cellHeight, i*cellWidth,  cellWidth, cellHeight);
 			}
 		}
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(lineColor);
 		
 		for(int i = 0; i < wcount; ++i){
 			g.drawLine(cellWidth * i, 0, cellWidth * i, height);
