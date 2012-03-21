@@ -1,9 +1,11 @@
 package shared;
 
-public enum Cell {
+import java.io.Serializable;
+
+public enum Cell implements Serializable{
 	UNVISIBLE, FREE, WALL, FOOD, ENEMY, FRIEND, OWN_HILL, ENEMY_HILL;
 	private String entity;
-
+	
 	public String getAntName() throws Exception {
 		if(this != FRIEND){
 			throw new Exception();

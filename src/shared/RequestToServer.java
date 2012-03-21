@@ -2,12 +2,22 @@ package shared;
 
 import java.io.Serializable;
 
-public class RequestToServer implements MessageToServer{
-	private static final long serialVersionUID = -1057213833541284910L;
+import server.model.StepDirection;
 
-	@Override
-	public Type getType() {
-		return Type.REQUEST;
+public class RequestToServer implements Serializable{
+	private StepDirection step;
+
+	public RequestToServer(String step) {
+		super();
+		this.step = StepDirection.fromString(step);
 	}
 
+	public StepDirection getStep() {
+		return step;
+	}
+
+	public void setStep(StepDirection step) {
+		this.step = step;
+	}
+	
 }

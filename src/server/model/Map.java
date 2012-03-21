@@ -4,10 +4,13 @@ import server.CellCreator;
 
 
 public class Map {
+	
+	private Cell [][] cells;
+	
 	public Map() {
 		cells = CellCreator.createDedaultCells();
 	}
-	private Cell [][] cells;
+	
 	public int getW(){
 		return cells.length;
 	}
