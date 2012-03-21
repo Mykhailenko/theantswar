@@ -14,5 +14,13 @@ public class RequestToServer implements MessageToServer{
 	public Type getType() {
 		return Type.REQUEST;
 	}
+	@Override
+	public boolean isStep() {
+		return false;
+	}
+	@Override
+	public boolean isRequest() {
+		return true;
+	}
 	
 }

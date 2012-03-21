@@ -3,7 +3,7 @@ package server;
 import java.util.List;
 import java.util.Map;
 
-import server.model.AntCoockies;
+import server.model.AntCoockie;
 import server.model.HillCoockie;
 
 import jade.core.behaviours.OneShotBehaviour;
@@ -13,10 +13,10 @@ import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
 
 public class InitBehavior extends OneShotBehaviour {
-	private Map<String, AntCoockies> data;
+	private Map<String, AntCoockie> data;
 	private List<HillCoockie> hillCoockies;
 	private ContainerController containerController;
-	public InitBehavior(ContainerController containerController, Map<String, AntCoockies> data, List<HillCoockie> hillCoockies) {
+	public InitBehavior(ContainerController containerController, Map<String, AntCoockie> data, List<HillCoockie> hillCoockies) {
 		this.data = data;
 		this.hillCoockies = hillCoockies;
 		this.containerController = containerController;
@@ -31,7 +31,7 @@ public class InitBehavior extends OneShotBehaviour {
 					agent = containerController.createNewAgent(antName, Server.glebAgentClassName, null);
 				} catch (StaleProxyException e) {
 				}
-				AntCoockies antCoockies = new AntCoockies();
+				AntCoockie antCoockies = new AntCoockie();
 				antCoockies.setAntName(antName);
 				antCoockies.setLastRequest(0);
 				antCoockies.setLastStep(0);
@@ -52,7 +52,7 @@ public class InitBehavior extends OneShotBehaviour {
 					agent = containerController.createNewAgent(antName, Server.olegAgentClassName, null);
 				} catch (StaleProxyException e) {
 				}
-				AntCoockies antCoockies = new AntCoockies();
+				AntCoockie antCoockies = new AntCoockie();
 				antCoockies.setAntName(antName);
 				antCoockies.setLastRequest(0);
 				antCoockies.setLastStep(0);

@@ -2,25 +2,23 @@ package server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import client.BaseAnt;
-
-import server.model.AntCoockies;
+import server.model.AntCoockie;
 import server.model.Cell;
 import server.model.Cell.Type;
+import server.model.Constants;
 import server.model.HillCoockie;
 import server.model.Map;
 import server.visual.GFrame;
 import server.visual.GameFrame;
 import shared.MessageToServer;
-
+import shared.StepToServer;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
+import jade.wrapper.StaleProxyException;
 
 public class Server extends Agent{
 	public static final String gleb = "GLEB";
@@ -28,7 +26,7 @@ public class Server extends Agent{
 	public static final String glebAgentClassName = BaseAnt.class.getName();
 	public static final String olegAgentClassName = BaseAnt.class.getName();
 	private static final long serialVersionUID = 1L;
-	private static java.util.Map<String, AntCoockies> antCoockies = new HashMap<String, AntCoockies>();
+	private static java.util.Map<String, AntCoockie> antCoockies = new HashMap<String, AntCoockie>();
 	private static List<HillCoockie> hillCoockies;
 	private static GFrame gFrame ;
 	private static Map staticMap;
@@ -77,7 +75,7 @@ public class Server extends Agent{
 				ACLMessage message = receive();
 				if(message != null){
 					String antName = getAntName(message);
-					AntCoockies coockie = antCoockies.get(antName);
+					AntCoockie coockie = antCoockies.get(antName);
 					if(coockie!=null){
 						try {
 							if(badTime(message, coockie)){
@@ -86,16 +84,77 @@ public class Server extends Agent{
 						} catch (UnreadableException e) {
 							killAnt(antName);
 						}
-					checkAndMaybePaintMap();
+						MessageToServer mts = null;
+						try {
+							mts = (MessageToServer) message.getContentObject();
+						} catch (UnreadableException e) {
+							e.printStackTrace();
+						}
+						if(mts.isRequest()){
+							
+						}else if(mts.isStep()){
+							StepToServer sts = (StepToServer) mts;
+							int x = coockie.getX();
+							int y = coockie.getY();
+							
+							switch (sts.getStepDirection()) {
+							case DOWN:
+								++y; 
+								break;
+							case RIGHT:
+								++x;
+								break;
+							case UP:
+								--y;
+								break;
+							case LEFT:
+								--x;
+								break;
+							case STAY:
+							default:
+								break;
+							}
+							if(badCoordinates(x, y)){
+								killAnt(antName);
+							}else{
+								Cell cell = staticMap.getCells()[y][x];
+								switch (cell.getType()) {
+								case FREE:
+									break;
+								case WALL:
+								default:
+									killAnt(antName);
+									break;
+								}
+							}
+							
+						}
+						checkAndMaybePaintMap();
 					}
 				}
 				block();
 			}
-			
+			private boolean badCoordinates(int x, int y){
+				if(0 <= x && x <= Constants.MAP_SIZE &&
+						0 <= y && y <= Constants.MAP_SIZE){
+					return false;
+				}else{
+					return true;
+				}
+				
+			}
 			private void killAnt(String antName) {
+				AntCoockie ac = antCoockies.get(antName);
+				try {
+					ac.getAgentController().kill();
+				} catch (StaleProxyException e) {
+					e.printStackTrace();
+				}finally{
+					antCoockies.remove(antName);
+				}
 			}
 			
-			private boolean badTime(ACLMessage message, AntCoockies coockie) throws UnreadableException {
+			private boolean badTime(ACLMessage message, AntCoockie coockie) throws UnreadableException {
 				MessageToServer mts = (MessageToServer) message.getContentObject();
 				if(mts.getType().equals(MessageToServer.Type.REQUEST)){
 					long curr = System.currentTimeMillis();
@@ -123,6 +182,8 @@ public class Server extends Agent{
 
 			private void checkAndMaybePaintMap(){
 				if(counter == 0){
+					//////////////
+					//////////////
 					gFrame.paint(staticMap);
 					counter = 5;
 				}else{

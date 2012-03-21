@@ -1,12 +1,12 @@
 package server.model;
 
 public enum StepDirection {
-	LEFT, TOP, RIGHT, DOWN, STAY;
+	LEFT, UP, RIGHT, DOWN, STAY;
 	public static StepDirection fromString(String str){
 		if(str.equalsIgnoreCase("left")){
 			return LEFT;
-		}else if(str.equalsIgnoreCase("top")){
-			return TOP;
+		}else if(str.equalsIgnoreCase("up")){
+			return UP;
 		}else if(str.equalsIgnoreCase("right")){
 			return RIGHT;
 		}else if(str.equalsIgnoreCase("down")){
@@ -22,8 +22,8 @@ public enum StepDirection {
 		switch (this) {
 		case LEFT:
 			return "left";
-		case TOP:
-			return "top";
+		case UP:
+			return "up";
 		case RIGHT:
 			return "right";
 		case DOWN:

@@ -2,7 +2,7 @@ package server.model;
 
 import jade.wrapper.AgentController;
 
-public class AntCoockies {
+public class AntCoockie {
 	private long lastRequest;
 	private long lastStep;
 	private String playerName;

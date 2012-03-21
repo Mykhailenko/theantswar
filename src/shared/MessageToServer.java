@@ -11,4 +11,6 @@ public interface MessageToServer extends Serializable{
 		STEP, REQUEST;
 	}
 	public Type getType();
+	public boolean isStep();
+	public boolean isRequest();
 }

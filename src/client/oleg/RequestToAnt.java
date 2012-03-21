@@ -2,7 +2,15 @@ package client.oleg;
 
 import java.io.Serializable;
 
-//  ласс запроса муравь€ к муравью
+/**
+ *  ак бы это уже дело муравь€. 
+ * в смысле € буду обениватс€ между своими тем чем мне будет удобно.
+ * это к базовому функционалу не относитс€
+ * 
+ * @author RedFox
+ *
+ */
+//  ласс запроса муравь€ к муравью . 
 public class RequestToAnt implements Serializable{
 	private String message;
 

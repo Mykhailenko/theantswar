@@ -23,4 +23,14 @@ public class StepToServer implements MessageToServer {
 		return Type.STEP;
 	}
 
+	@Override
+	public boolean isStep() {
+		return true;
+	}
+
+	@Override
+	public boolean isRequest() {
+		return false;
+	}
+
 }
