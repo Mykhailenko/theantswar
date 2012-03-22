@@ -2,6 +2,7 @@ package server.behavior;
 
 import server.model.AntCoockie;
 import server.model.Cell;
+import server.model.Cell.Type;
 import server.model.GameBag;
 import server.model.StepDirection;
 import shared.Constants;
@@ -46,12 +47,18 @@ public class StepMaker {
 			switch (cell.getType()) {
 			case FREE:
 				break;
+			case FOOD:
+				createAntForPlayer(ant.getPlayerName());
+				cell.setType(Type.ANT);
 			case WALL:
 			default:
 				mainBehavior.killAnt(ant.getAntName());
 				break;
 			}
 		}
+	}
+	private void createAntForPlayer(String playerName){
+		
 	}
 	private boolean badCoordinates(int x, int y){
 		if(0 <= x && x <= Constants.MAP_SIZE &&

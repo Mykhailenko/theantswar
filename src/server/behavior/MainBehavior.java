@@ -7,12 +7,12 @@ import shared.Constants;
 import shared.MessageToServer;
 import shared.StepToServer;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.wrapper.StaleProxyException;
 
-public class MainBehavior extends CyclicBehaviour {
+public class MainBehavior extends SimpleBehaviour {
 	private static final long serialVersionUID = 538601823417067372L;
 	private Agent agent;
 	private char repaintCounter;
@@ -64,16 +64,21 @@ public class MainBehavior extends CyclicBehaviour {
 		block();
 	}
 
-	private void checkAndMaybeThrowFood() {
-		if(throwFoodCounter == 0){
-			
-			throwFoodCounter = 5;
-		}else{
-			--throwFoodCounter;
+	@Override
+	public boolean done() {
+		if(somebodyWin()){
+			congradulateSomebody();
+			return true;
 		}
-		
+		return false;
 	}
 	
+	private void congradulateSomebody() {
+		
+	}
+	private boolean somebodyWin() {
+		return false;
+	}
 	public void killAnt(String antName) {
 		AntCoockie ac = gameBag.getAntCoockies().get(antName);
 		try {
@@ -107,10 +112,6 @@ public class MainBehavior extends CyclicBehaviour {
 		return false;
 	}
 
-	private String getAntName(ACLMessage message) {
-		return message.getSender().getLocalName();
-	}
-
 	private void checkAndMaybePaintMap(){
 		if(repaintCounter == 0){
 			//////////////
@@ -120,5 +121,17 @@ public class MainBehavior extends CyclicBehaviour {
 		}else{
 			--repaintCounter;
 		}
+	}
+	private void checkAndMaybeThrowFood() {
+		if(throwFoodCounter == 0){
+			
+			throwFoodCounter = 5;
+		}else{
+			--throwFoodCounter;
+		}
+		
+	}
+	private String getAntName(ACLMessage message) {
+		return message.getSender().getLocalName();
 	}
 }
