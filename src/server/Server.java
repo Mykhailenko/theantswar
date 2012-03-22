@@ -15,6 +15,9 @@ import jade.core.Agent;
 
 public class Server extends Agent{
 	private static final long serialVersionUID = 7636300336377545451L;
+	/**
+	 * информация по текущей игре
+	 */
 	private static GameBag gameBag;
 	private static GFrame gFrame ;
 	public static void main(String [] rgs){
