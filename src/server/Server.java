@@ -2,6 +2,9 @@ package server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import server.behavior.InitBehavior;
+import server.behavior.MainBehavior;
 import server.model.AntCoockie;
 import server.model.Cell;
 import server.model.Cell.Type;
@@ -45,6 +48,10 @@ public class Server extends Agent{
 		hi1.setY(20);
 		gameBag.getHillCoockies().add(hi1);
 	}
+	/**
+	 * До вызова этого метода статичиская карта содержит только пустые ячейки и стены
+	 * 
+	 */
 	private static void putHillsOnMap(){
 		for(HillCoockie hillCoockie : gameBag.getHillCoockies()){
 			Cell cell = new Cell();
@@ -55,7 +62,16 @@ public class Server extends Agent{
 	}
 	@Override
 	protected void setup() {
+		/**
+		 * инициализация игры, т.е. создание в клетках где есть муравейники по одному муравью
+		 */
 		addBehaviour(new InitBehavior(getContainerController(), gameBag));
+		
+		/**
+		 * вечный цикл приема сообщений
+		 * каждые 5 ходов разбрасывается еда
+		 * каждые 5 ходов обновляется гуи
+		 */
 		addBehaviour(new MainBehavior(this, gameBag, gFrame));
 	}
 }

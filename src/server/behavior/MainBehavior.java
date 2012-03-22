@@ -1,7 +1,6 @@
-package server;
+package server.behavior;
 
 import server.model.AntCoockie;
-import server.model.Cell;
 import server.model.GameBag;
 import server.visual.GFrame;
 import shared.Constants;
@@ -20,74 +19,46 @@ public class MainBehavior extends CyclicBehaviour {
 	private char throwFoodCounter;
 	private GameBag gameBag;
 	private GFrame gFrame;
+	private LocalityResponser localityResponser;
+	private StepMaker stepMaker;
 	public MainBehavior(Agent agent, GameBag gameBag, GFrame gFrame) {
 		this.repaintCounter = 0;
 		this.throwFoodCounter = 0;
 		this.agent = agent;
 		this.gameBag = gameBag;
 		this.gFrame = gFrame;
+		this.localityResponser = new LocalityResponser(gameBag);
+		this.stepMaker = new StepMaker(gameBag, this);
 	}
 	@Override
 	public void action() {
+		
 		ACLMessage message = agent.receive();
 		if(message != null){
 			String antName = getAntName(message);
 			AntCoockie coockie = gameBag.getAntCoockies().get(antName);
-			if(coockie!=null){
+			if(coockie!=null){// если мурашка с таким именем существует 
 				try {
-					if(badTime(message, coockie)){
+					if(badTime(message, coockie)){// если мурашка наглеет то мы её убиваем
 						killAnt(antName);
 					}
-				} catch (UnreadableException e) {
+				} catch (UnreadableException e) {// смерть за эксепшн
 					killAnt(antName);
 				}
 				MessageToServer mts = null;
 				try {
 					mts = (MessageToServer) message.getContentObject();
-				} catch (UnreadableException e) {
-					e.printStackTrace();
-				}
-				int x = coockie.getX();
-				int y = coockie.getY();
-				if(mts.isRequest()){
-					
-				}else if(mts.isStep()){
-					StepToServer sts = (StepToServer) mts;
-					
-					switch (sts.getStepDirection()) {
-					case DOWN:
-						++y; 
-						break;
-					case RIGHT:
-						++x;
-						break;
-					case UP:
-						--y;
-						break;
-					case LEFT:
-						--x;
-						break;
-					case STAY:
-					default:
-						break;
+					// определим-ка какого типа к нам сообщение
+					if(mts.isRequest()){// это запрос на получение окрестности. на него ещё и отвечать надо
+						ACLMessage resp = localityResponser.message(coockie);
+						agent.send(resp);
+					}else if(mts.isStep()){// собственно ход
+						StepToServer sts = (StepToServer) mts;
+						stepMaker.makeStep(coockie, sts.getStepDirection());
 					}
-					if(badCoordinates(x, y)){
-						killAnt(antName);
-					}else{
-						Cell cell = gameBag.getStaticMap().getCells()[y][x];
-						switch (cell.getType()) {
-						case FREE:
-							break;
-						case WALL:
-						default:
-							killAnt(antName);
-							break;
-						}
-					}
-					
-				}
-				checkAndMaybePaintMap();
-				checkAndMaybeThrowFood();
+					checkAndMaybePaintMap();
+					checkAndMaybeThrowFood();
+				} catch (UnreadableException e) {		}
 			}
 		}
 		block();
@@ -102,16 +73,8 @@ public class MainBehavior extends CyclicBehaviour {
 		}
 		
 	}
-	private boolean badCoordinates(int x, int y){
-		if(0 <= x && x <= Constants.MAP_SIZE &&
-				0 <= y && y <= Constants.MAP_SIZE){
-			return false;
-		}else{
-			return true;
-		}
-		
-	}
-	private void killAnt(String antName) {
+	
+	public void killAnt(String antName) {
 		AntCoockie ac = gameBag.getAntCoockies().get(antName);
 		try {
 			ac.getAgentController().kill();

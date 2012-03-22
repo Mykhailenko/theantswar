@@ -1,4 +1,4 @@
-package server;
+package server.behavior;
 
 import server.model.AntCoockie;
 import server.model.GameBag;
