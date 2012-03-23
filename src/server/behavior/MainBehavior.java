@@ -1,7 +1,12 @@
 package server.behavior;
 
+import java.util.Iterator;
+
 import server.model.AntCoockie;
+import server.model.Cell;
+import server.model.Cell.Type;
 import server.model.GameBag;
+import server.model.Map;
 import server.visual.GFrame;
 import shared.Constants;
 import shared.MessageToServer;
@@ -22,8 +27,8 @@ public class MainBehavior extends SimpleBehaviour {
 	private LocalityResponser localityResponser;
 	private StepMaker stepMaker;
 	public MainBehavior(Agent agent, GameBag gameBag, GFrame gFrame) {
-		this.repaintCounter = 0;
-		this.throwFoodCounter = 0;
+		this.repaintCounter = 5;
+		this.throwFoodCounter = 5;
 		this.agent = agent;
 		this.gameBag = gameBag;
 		this.gFrame = gFrame;
@@ -35,9 +40,11 @@ public class MainBehavior extends SimpleBehaviour {
 		
 		ACLMessage message = agent.receive();
 		if(message != null){
+			System.out.println("Recieve!");
 			String antName = getAntName(message);
 			AntCoockie coockie = gameBag.getAntCoockies().get(antName);
-			if(coockie!=null){// если мурашка с таким именем существует 
+			if(coockie!=null){// если мурашка с таким именем существует
+				System.out.println("Exist!");
 				try {
 					if(badTime(message, coockie)){// если мурашка наглеет то мы её убиваем
 						killAnt(antName);
@@ -113,21 +120,47 @@ public class MainBehavior extends SimpleBehaviour {
 	}
 
 	private void checkAndMaybePaintMap(){
-		if(repaintCounter == 0){
+		System.out.println("checkAndMaybePa " + repaintCounter);
+		if(repaintCounter == 5){
+			System.out.println("checkAndMaybePaintMap() " + gameBag.getAntCoockies().size());
+			Map detailMap = gameBag.getStaticMap().copy();
+			for(Iterator<java.util.Map.Entry<String, AntCoockie>> it = gameBag.getAntCoockies().entrySet().iterator();
+					it.hasNext(); ){
+				java.util.Map.Entry<String, AntCoockie> entry = it.next();
+				AntCoockie ant = entry.getValue();
+				int x = ant.getX();
+				int y = ant.getY();
+				Cell cell = detailMap.getCells()[y][x];
+				switch (cell.getType()) {
+				case FREE:
+					cell.setType(Type.ANT);
+					cell.setAntName(ant.getAntName());
+					cell.setPlayerName(ant.getPlayerName());
+					break;
+				case HILL:
+					cell.setType(Type.ANT_HILL);
+					cell.setAntName(ant.getAntName());
+					cell.setPlayerName(ant.getPlayerName());
+				default:
+					break;
+				}
+				
+			}
 			//////////////
 			//////////////
-			gFrame.paint(gameBag.getStaticMap());
-			repaintCounter = 5;
+			gFrame.paint(detailMap);
+			repaintCounter = 0;
 		}else{
-			--repaintCounter;
+			++repaintCounter;
 		}
 	}
+	
 	private void checkAndMaybeThrowFood() {
-		if(throwFoodCounter == 0){
+		if(throwFoodCounter == 5){
 			
-			throwFoodCounter = 5;
+			throwFoodCounter = 0;
 		}else{
-			--throwFoodCounter;
+			++throwFoodCounter;
 		}
 		
 	}

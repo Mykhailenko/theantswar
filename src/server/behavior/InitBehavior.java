@@ -65,6 +65,7 @@ public class InitBehavior extends OneShotBehaviour {
 				}
 			}
 		}
+		System.out.println("after initialize " + gameBag.getAntCoockies().size());
 	}	
 
 }

@@ -20,6 +20,13 @@ public class Cell {
 	private String antName;
 	private String playerName;
 	private Type type;
+	public Cell copy() {
+		Cell cpy = new Cell();
+		cpy.setAntName(antName);
+		cpy.setPlayerName(playerName);
+		cpy.setType(type);
+		return cpy;
+	}
 	@Override
 	public String toString() {
 		return type.toString();

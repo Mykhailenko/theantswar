@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import server.model.Cell;
+import shared.Constants;
 
 public class Map extends JPanel{
 	private static final long serialVersionUID = -5727672996310615106L;
@@ -55,15 +56,33 @@ public class Map extends JPanel{
 			return Color.WHITE;
 		case ANT:
 		case ANT_HILL:
-			return Color.RED;
+			return antPlayerColor(cell.getPlayerName());
 		case HILL:
-			return Color.BLUE;
+			return hillPlayerColor(cell.getPlayerName());
 		case FOOD:
-			return Color.GREEN;
+			return Color.CYAN;
 		case WALL:
 			return Color.BLACK;
 		default:
 			return Color.ORANGE;
 		}
+	}
+	private Color hillPlayerColor(String playerName){
+		if(playerName.equals(Constants.gleb)){
+			return Color.green;
+		}
+		if(playerName.equals(Constants.oleg)){
+			return Color.orange;
+		}
+		return null;
+	}
+	private Color antPlayerColor(String playerName){
+		if(playerName.equals(Constants.gleb)){
+			return Color.blue;
+		}
+		if(playerName.equals(Constants.oleg)){
+			return Color.red;
+		}
+		return null;
 	}
 }

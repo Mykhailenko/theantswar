@@ -2,6 +2,9 @@ package server.model;
 
 public enum StepDirection {
 	LEFT, UP, RIGHT, DOWN, STAY;
+	private StepDirection() {
+		// TODO Auto-generated constructor stub
+	}
 	public static StepDirection fromString(String str){
 		if(str.equalsIgnoreCase("left")){
 			return LEFT;

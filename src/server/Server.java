@@ -30,9 +30,9 @@ public class Server extends Agent{
 		gameBag.setStaticMap(new Map());
 		initHills();
 		putHillsOnMap();
-		GFrame gFrame = new GameFrame();
+		gFrame = new GameFrame();
 		gFrame.paint(gameBag.getStaticMap());
-		String []args = {"-gui", "-local-host","127.0.0.1", "server:"+Server.class.getName()};
+		String []args = {"-gui", "-local-host","127.0.0.1", "Server:"+Server.class.getName()};
 		jade.Boot.main(args);
 	}
 	private static void initHills(){

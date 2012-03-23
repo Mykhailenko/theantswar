@@ -1,7 +1,11 @@
 package server.behavior;
 
+import java.util.List;
+
+import server.Utility;
 import server.model.AntCoockie;
 import server.model.Cell;
+import server.model.HillCoockie;
 import server.model.Cell.Type;
 import server.model.GameBag;
 import server.model.StepDirection;
@@ -46,14 +50,44 @@ public class StepMaker {
 			Cell cell = gameBag.getStaticMap().getCells()[y][x];
 			switch (cell.getType()) {
 			case FREE:
+				ant.setX(x);
+				ant.setY(y);
 				break;
 			case FOOD:
 				createAntForPlayer(ant.getPlayerName());
-				cell.setType(Type.ANT);
+				cell.setType(Type.FREE);
+				ant.setX(x);
+				ant.setY(y);
+			case ANT:
+			case ANT_HILL:
+				break;
+			case HILL:
+				if(!cell.getPlayerName().equals(ant.getPlayerName())){
+					cell.setType(Type.FREE);
+					killHillOn(x, y);
+					ant.setX(x);
+					ant.setY(y);
+				}
 			case WALL:
 			default:
 				mainBehavior.killAnt(ant.getAntName());
 				break;
+			}
+			List<AntCoockie> opponents = Utility.getOpponentsOfAnt(gameBag.getAntCoockies(), ant, Constants.ATTACK_SIZE);
+			if(opponents.size() == 1 ||
+					opponents.size() == 2){
+				// kill each other
+				mainBehavior.killAnt(ant.getAntName());
+				mainBehavior.killAnt(opponents.get(0).getAntName());
+			}else if(opponents.size() > 2){
+				mainBehavior.killAnt(ant.getAntName());
+			}
+		}
+	}
+	private void killHillOn(int x, int y){
+		for(HillCoockie hill : gameBag.getHillCoockies()){
+			if(hill.getX() == x && hill.getY() == y){
+				gameBag.getHillCoockies().remove(hill);
 			}
 		}
 	}
@@ -67,6 +101,5 @@ public class StepMaker {
 		}else{
 			return true;
 		}
-		
 	}
 }
