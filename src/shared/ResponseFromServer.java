@@ -2,13 +2,16 @@ package shared;
 
 import java.io.Serializable;
 
+import server.model.Locality;
+
 public class ResponseFromServer implements Serializable{
 	private static final long serialVersionUID = 3715051751516683440L;
-	private Cell [][] cells;
-	public Cell[][] getCells() {
-		return cells;
+	private Locality locality;
+	public Locality getLocality() {
+		return locality;
 	}
-	public void setCells(Cell[][] cells) {
-		this.cells = cells;
+	public void setLocality(Locality locality) {
+		this.locality = locality;
 	}
+	
 }

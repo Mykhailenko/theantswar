@@ -1,9 +1,6 @@
 package server;
 
 import server.model.AntCoockie;
-import server.model.GameBag;
-import shared.Cell;
-import shared.Constants;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -32,6 +29,9 @@ public class Utility {
 	}
 	public static int getDistance(AntCoockie a, AntCoockie b){
 		return Math.abs(a.getX()-b.getX())+Math.abs(a.getY()-b.getY());
+	}
+	public static int getDistance(int x0, int y0, int x1, int y1){
+		return Math.abs(x0-x1) + Math.abs(y0-y1); 
 	}
 	public static boolean isOpponent(AntCoockie a, AntCoockie b){
 		return !isFriend(a, b);
