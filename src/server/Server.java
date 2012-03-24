@@ -36,11 +36,11 @@ public class Server extends Agent{
 		jade.Boot.main(args);
 	}
 	private static void initHills(){
-		HillCoockie hi0 = new HillCoockie();
-		hi0.setPlayerName(Constants.gleb);
-		hi0.setX(14);
-		hi0.setY(14);
-		gameBag.getHillCoockies().add(hi0);
+//		HillCoockie hi0 = new HillCoockie();
+//		hi0.setPlayerName(Constants.gleb);
+//		hi0.setX(14);
+//		hi0.setY(14);
+//		gameBag.getHillCoockies().add(hi0);
 		
 		HillCoockie hi1 = new HillCoockie();
 		hi1.setPlayerName(Constants.gleb);
@@ -62,17 +62,18 @@ public class Server extends Agent{
 	}
 	@Override
 	protected void setup() {
+		MainBehavior mainBehavior = new MainBehavior(this, gameBag, gFrame);
 		/**
 		 * инициализация игры, т.е. создание в клетках где есть муравейники по одному муравью
 		 */
-		addBehaviour(new InitBehavior(getContainerController(), gameBag));
+		addBehaviour(new InitBehavior(mainBehavior, gameBag));
 		
 		/**
 		 * вечный цикл приема сообщений
 		 * каждые 5 ходов разбрасывается еда
 		 * каждые 5 ходов обновляется гуи
 		 */
-		addBehaviour(new MainBehavior(this, gameBag, gFrame));
+		addBehaviour(mainBehavior);
 	}
 }
 

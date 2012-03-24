@@ -8,10 +8,38 @@ public class GameBag {
 	private Map staticMap;
 	private long glebLastN;
 	private long olegLastN;
+	private int unbornGlebsAnt;
+	private int unbornOlegsAnt;
+	
+	
 	public GameBag() {
 		glebLastN = 0;
 		olegLastN = 0;
+		unbornGlebsAnt = 0;
+		unbornOlegsAnt = 0;
 	}
+	
+	
+	public int getUnbornGlebsAnt() {
+		return unbornGlebsAnt;
+	}
+
+
+	public void setUnbornGlebsAnt(int unbornGlebsAnt) {
+		this.unbornGlebsAnt = unbornGlebsAnt;
+	}
+
+
+	public int getUnbornOlegsAnt() {
+		return unbornOlegsAnt;
+	}
+
+
+	public void setUnbornOlegsAnt(int unbornOlegsAnt) {
+		this.unbornOlegsAnt = unbornOlegsAnt;
+	}
+
+
 	public void incrementGleb(){
 		++glebLastN;
 	}

@@ -24,12 +24,11 @@ public class RandomAnt extends BaseAnt{
 			}else if(r == 3){
 				direction = StepDirection.UP;
 			}
-			System.out.println("try to send " + direction);
 			makeStep(direction);
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-			}
+			long before = System.currentTimeMillis();
+			sleep(1000);
+			long after = System.currentTimeMillis();
+			System.out.println("really sleep " + (after - before));
 		}
 			
 	}

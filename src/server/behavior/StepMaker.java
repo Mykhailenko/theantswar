@@ -1,5 +1,8 @@
 package server.behavior;
 
+import jade.wrapper.AgentController;
+import jade.wrapper.StaleProxyException;
+
 import java.util.List;
 
 import server.Utility;
@@ -54,7 +57,7 @@ public class StepMaker {
 				ant.setY(y);
 				break;
 			case FOOD:
-				createAntForPlayer(ant.getPlayerName());
+				mainBehavior.createAntForPlayer(ant.getPlayerName());
 				cell.setType(Type.FREE);
 				ant.setX(x);
 				ant.setY(y);
@@ -68,8 +71,10 @@ public class StepMaker {
 					ant.setX(x);
 					ant.setY(y);
 				}
+				break;
 			case WALL:
 			default:
+				System.out.println("kill ant by the wall");
 				mainBehavior.killAnt(ant.getAntName());
 				break;
 			}
@@ -77,10 +82,10 @@ public class StepMaker {
 			if(opponents.size() == 1 ||
 					opponents.size() == 2){
 				// kill each other
-				mainBehavior.killAnt(ant.getAntName());
-				mainBehavior.killAnt(opponents.get(0).getAntName());
+//				mainBehavior.killAnt(ant.getAntName());
+//				mainBehavior.killAnt(opponents.get(0).getAntName());
 			}else if(opponents.size() > 2){
-				mainBehavior.killAnt(ant.getAntName());
+//				mainBehavior.killAnt(ant.getAntName());
 			}
 		}
 	}
@@ -91,9 +96,7 @@ public class StepMaker {
 			}
 		}
 	}
-	private void createAntForPlayer(String playerName){
-		
-	}
+	
 	private boolean badCoordinates(int x, int y){
 		if(0 <= x && x <= Constants.MAP_SIZE &&
 				0 <= y && y <= Constants.MAP_SIZE){

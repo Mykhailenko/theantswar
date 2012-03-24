@@ -46,4 +46,16 @@ public class BaseAnt extends Agent{
 		message.addReceiver(serverAID);
 		send(message);
 	}
+	protected final void sleep(long mls){
+		long start = System.currentTimeMillis();
+		while(true){
+			long delta = System.currentTimeMillis() - start;
+			if(delta >= mls){
+				break;
+			}
+			try {
+				Thread.sleep(mls - delta);
+			} catch (InterruptedException e) {	}
+		}
+	}
 }
