@@ -25,10 +25,6 @@ public class RandomAnt extends BaseAnt{
 				direction = StepDirection.UP;
 			}
 			makeStep(direction);
-			long before = System.currentTimeMillis();
-			sleep(1000);
-			long after = System.currentTimeMillis();
-			System.out.println("really sleep " + (after - before));
 		}
 			
 	}

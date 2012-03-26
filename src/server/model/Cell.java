@@ -50,6 +50,12 @@ public class Cell {
 		return type;
 	}
 	public void setType(Type type) {
+		if(type.equals(Type.FOOD) ||
+				type.equals(Type.FREE) ||
+				type.equals(Type.WALL) ){
+			this.antName = null;
+			this.playerName = null;
+		}
 		this.type = type;
 	}
 	

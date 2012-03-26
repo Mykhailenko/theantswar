@@ -1,8 +1,11 @@
 package server.behavior;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import server.model.AntCoockie;
 import server.model.Cell;
@@ -10,6 +13,7 @@ import server.model.HillCoockie;
 import server.model.Cell.Type;
 import server.model.GameBag;
 import server.model.Map;
+import server.model.Coordinate;
 import server.visual.GFrame;
 import shared.Constants;
 import shared.MessageToServer;
@@ -49,15 +53,6 @@ public class MainBehavior extends SimpleBehaviour {
 			AntCoockie coockie = gameBag.getAntCoockies().get(antName);
 			if(coockie!=null){// если мурашка с таким именем существует
 				System.out.println("Exist!");
-				try {
-					if(badTime(message, coockie)){// если мурашка наглеет то мы её убиваем
-						System.out.println("it's bad time");
-						killAnt(antName);
-					}
-				} catch (UnreadableException e) {// смерть за эксепшн
-					System.out.println("exep " + e);
-					killAnt(antName);
-				}
 				MessageToServer mts = null;
 				try {
 					mts = (MessageToServer) message.getContentObject();
@@ -72,6 +67,9 @@ public class MainBehavior extends SimpleBehaviour {
 					checkAndMaybePaintMap();
 					checkAndMaybeThrowFood();
 					createAnts();
+					System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
+							"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
+					
 				} catch (UnreadableException e) {		}
 			}
 		}
@@ -113,8 +111,6 @@ public class MainBehavior extends SimpleBehaviour {
 		}
 		AntCoockie antCoockies = new AntCoockie();
 		antCoockies.setAntName(antName);
-		antCoockies.setLastRequest(0);
-		antCoockies.setLastStep(0);
 		antCoockies.setAgentController(ac);
 		antCoockies.setPlayerName(Constants.gleb);
 		antCoockies.setX(hill.getX());
@@ -125,6 +121,7 @@ public class MainBehavior extends SimpleBehaviour {
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}
+		gameBag.setCountOfGlebAnts(gameBag.getCountOfGlebAnts() + 1);
 	}
 	private void createAntForOlegOnHill(HillCoockie hill) {
 		AgentController ac = null;
@@ -135,8 +132,6 @@ public class MainBehavior extends SimpleBehaviour {
 		}
 		AntCoockie antCoockies = new AntCoockie();
 		antCoockies.setAntName(antName);
-		antCoockies.setLastRequest(0);
-		antCoockies.setLastStep(0);
 		antCoockies.setAgentController(ac);
 		antCoockies.setPlayerName(Constants.oleg);
 		antCoockies.setX(hill.getX());
@@ -147,22 +142,26 @@ public class MainBehavior extends SimpleBehaviour {
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}
+		gameBag.setCountOfOlegAnts(gameBag.getCountOfOlegAnts() + 1);
 	}
 	private List<HillCoockie> freeHillsForPlayer(String playerName){
 		List<HillCoockie> result = new ArrayList<HillCoockie>();
 		for(HillCoockie hill : gameBag.getHillCoockies()){
-			if(hill.getPlayerName().equals(playerName) && noOneStayOnHill(hill)){
+			if(hill.getPlayerName().equals(playerName) && noAntStayOnHill(hill)){
 				result.add(hill);
 			}
 		}
 		return result;
 	}
-	private boolean noOneStayOnHill(HillCoockie hill){
+	private boolean noAntStayOnHill(HillCoockie hill){
+		return noAntStayOnCoordinates(hill.getX(), hill.getY());
+	}
+	private boolean noAntStayOnCoordinates(int x, int y){
 		for(Iterator<java.util.Map.Entry<String, AntCoockie>> it = gameBag.getAntCoockies().entrySet().iterator(); it.hasNext() ;){
 			java.util.Map.Entry<String, AntCoockie> entry = it.next();
 			AntCoockie ant = entry.getValue();
-			if(hill.getX() == ant.getX() && 
-					hill.getY() == ant.getY()){
+			if(x == ant.getX() && 
+					y == ant.getY()){
 				return false;
 			}
 		}
@@ -171,17 +170,61 @@ public class MainBehavior extends SimpleBehaviour {
 	@Override
 	public boolean done() {
 		if(somebodyWin()){
-			congradulateSomebody();
+			System.out.println("somebody win");
+			System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
+					"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
 			return true;
 		}
 		return false;
 	}
-	
-	private void congradulateSomebody() {
-		
-	}
 	private boolean somebodyWin() {
-		return false;
+		boolean glebLost = glebLost();
+		boolean olegLost = olegLost();
+		if(glebLost && olegLost){
+			congradulateWithDraw();
+			return true;
+		}else if(glebLost){
+			congradulateOleg();
+			return true;
+		}else if(olegLost){
+			congradulateGleb();
+			return true;
+		}else{
+			return false;
+		}
+	}
+	private void congradulateGleb() {
+		System.out.println("gleb win");
+	}
+	private void congradulateOleg() {
+		System.out.println("oleg win");
+	}
+	private void congradulateWithDraw() {
+		System.out.println("it's a draw");
+	}
+	private boolean glebLost(){
+		if(gameBag.getCountOfGlebAnts() == 0){
+			if(gameBag.getCountOfGlebHills() > 0 && 
+					gameBag.getUnbornGlebsAnt() > 0){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return false;
+		}
+	}
+	private boolean olegLost() {
+		if(gameBag.getCountOfOlegAnts() == 0){
+			if(gameBag.getCountOfOlegHills() > 0 && 
+					gameBag.getUnbornOlegsAnt() > 0){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return false;
+		}
 	}
 	public void createAntForPlayer(String playerName){
 		if(playerName.equals(Constants.gleb)){
@@ -198,40 +241,17 @@ public class MainBehavior extends SimpleBehaviour {
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}finally{
-			gameBag.getAntCoockies().remove(antName);
+			AntCoockie ant = gameBag.getAntCoockies().get(antName);
+			if(ant.getPlayerName().equals(Constants.gleb)){
+				gameBag.setCountOfGlebAnts(gameBag.getCountOfGlebAnts() - 1);
+			}else{
+				gameBag.setCountOfOlegAnts(gameBag.getCountOfOlegAnts() - 1);
+			}
+			gameBag.getAntCoockies().remove(ant);
+			
 		}
 	}
 	
-	private boolean badTime(ACLMessage message, AntCoockie coockie) throws UnreadableException {
-		MessageToServer mts = (MessageToServer) message.getContentObject();
-		if(mts.getType().equals(MessageToServer.Type.REQUEST)){
-			if(coockie.getLastRequest() == 0){
-				coockie.setLastRequest(System.currentTimeMillis());
-				return false;
-			}
-			if(System.currentTimeMillis() - coockie.getLastRequest() < Constants.INTERVAL){
-				System.out.println("Kill "+ coockie.getAntName()+"because " + (System.currentTimeMillis()- coockie.getLastRequest()) );
-				return true;
-			}else{
-				coockie.setLastRequest(System.currentTimeMillis());
-				return false;
-			}
-		}else if(mts.getType().equals(MessageToServer.Type.STEP)){
-			if(coockie.getLastStep() == 0){
-				coockie.setLastStep(System.currentTimeMillis());
-				return false;
-			}
-			if(System.currentTimeMillis() - coockie.getLastStep() < Constants.INTERVAL){
-				System.out.println("Kill "+ coockie.getAntName()+"because " + (System.currentTimeMillis() - coockie.getLastStep()) );
-				return true;
-			}else{
-				coockie.setLastStep(System.currentTimeMillis());
-				return false;
-			}
-		}
-		return false;
-	}
-
 	private void checkAndMaybePaintMap(){
 //		System.out.println("checkAndMaybePa " + repaintCounter);
 //		if(repaintCounter == 5){
@@ -270,12 +290,44 @@ public class MainBehavior extends SimpleBehaviour {
 	
 	private void checkAndMaybeThrowFood() {
 		if(throwFoodCounter == 5){
-			
+			List<Coordinate> freeCells = getAllFreeCells();
+			List<Coordinate> choosenCells = getOnlyNFromAll(8, freeCells);
+			for(int i = 0; i < choosenCells.size(); ++i){
+				Coordinate pair = choosenCells.get(i);
+				gameBag.getStaticMap().getCells()[pair.getY()][pair.getX()].setType(Type.FOOD);
+			}
 			throwFoodCounter = 0;
 		}else{
 			++throwFoodCounter;
 		}
 		
+	}
+	private List<Coordinate> getOnlyNFromAll(int N, List<Coordinate> all) {
+		if((0 < N && N < all.size()) == false){
+			return Collections.emptyList();
+		}
+		List<Coordinate> result = new LinkedList<Coordinate>();
+		Random random = new Random();
+		for(int i = 0; i < N; ++i){
+			int luckyIndex = random.nextInt(all.size());
+			Coordinate luckyCoord = all.get(luckyIndex);
+			all.remove(luckyIndex);
+			result.add(luckyCoord);
+		}
+		return result;
+	}
+	private List<Coordinate> getAllFreeCells() {
+		List<Coordinate> freeCells = new LinkedList<Coordinate>();
+		for(int i = 0; i < gameBag.getStaticMap().getCells().length; ++i){
+			for(int j = 0; j < gameBag.getStaticMap().getCells()[0].length; ++j){
+				Cell cell = gameBag.getStaticMap().getCells()[i][j]; 
+				if(cell.getType().equals(Type.FREE) && noAntStayOnCoordinates(j, i)){
+					Coordinate coordinate = new Coordinate(j, i);
+					freeCells.add(coordinate);
+				}
+			}
+		}
+		return freeCells;
 	}
 	private String getAntName(ACLMessage message) {
 		return message.getSender().getLocalName();

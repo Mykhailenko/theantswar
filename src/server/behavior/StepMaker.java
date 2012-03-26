@@ -82,17 +82,23 @@ public class StepMaker {
 			if(opponents.size() == 1 ||
 					opponents.size() == 2){
 				// kill each other
-//				mainBehavior.killAnt(ant.getAntName());
-//				mainBehavior.killAnt(opponents.get(0).getAntName());
+				mainBehavior.killAnt(ant.getAntName());
+				mainBehavior.killAnt(opponents.get(0).getAntName());
 			}else if(opponents.size() > 2){
-//				mainBehavior.killAnt(ant.getAntName());
+				mainBehavior.killAnt(ant.getAntName());
 			}
 		}
 	}
 	private void killHillOn(int x, int y){
 		for(HillCoockie hill : gameBag.getHillCoockies()){
 			if(hill.getX() == x && hill.getY() == y){
+				if(hill.getPlayerName().equals(Constants.gleb)){
+					gameBag.setCountOfGlebHills(gameBag.getCountOfGlebHills() - 1);
+				}else{
+					gameBag.setCountOfOlegHills(gameBag.getCountOfOlegHills() - 1);
+				}
 				gameBag.getHillCoockies().remove(hill);
+				break;
 			}
 		}
 	}

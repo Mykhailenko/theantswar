@@ -36,28 +36,45 @@ public class Server extends Agent{
 		jade.Boot.main(args);
 	}
 	private static void initHills(){
-//		HillCoockie hi0 = new HillCoockie();
-//		hi0.setPlayerName(Constants.gleb);
-//		hi0.setX(14);
-//		hi0.setY(14);
-//		gameBag.getHillCoockies().add(hi0);
+		HillCoockie hi0 = new HillCoockie();
+		hi0.setPlayerName(Constants.oleg);
+		hi0.setX(50);
+		hi0.setY(40);
+		gameBag.getHillCoockies().add(hi0);
+		
+		HillCoockie hi01 = new HillCoockie();
+		hi01.setPlayerName(Constants.oleg);
+		hi01.setX(35);
+		hi01.setY(38);
+		gameBag.getHillCoockies().add(hi01);
 		
 		HillCoockie hi1 = new HillCoockie();
 		hi1.setPlayerName(Constants.gleb);
-		hi1.setX(14);
-		hi1.setY(20);
+		hi1.setX(40);
+		hi1.setY(40);
 		gameBag.getHillCoockies().add(hi1);
+		
+		HillCoockie hi2 = new HillCoockie();
+		hi2.setPlayerName(Constants.gleb);
+		hi2.setX(43);
+		hi2.setY(43);
+		gameBag.getHillCoockies().add(hi2);
 	}
 	/**
 	 * До вызова этого метода статичиская карта содержит только пустые ячейки и стены
 	 * 
 	 */
 	private static void putHillsOnMap(){
-		for(HillCoockie hillCoockie : gameBag.getHillCoockies()){
+		for(HillCoockie hill : gameBag.getHillCoockies()){
 			Cell cell = new Cell();
 			cell.setType(Type.HILL);
-			cell.setPlayerName(hillCoockie.getPlayerName());
-			gameBag.getStaticMap().getCells()[hillCoockie.getY()][hillCoockie.getX()] = cell;
+			cell.setPlayerName(hill.getPlayerName());
+			if(hill.getPlayerName().equals(Constants.gleb)){
+				gameBag.setCountOfGlebHills(gameBag.getCountOfGlebHills() + 1);
+			}else{
+				gameBag.setCountOfOlegHills(gameBag.getCountOfOlegHills() + 1);
+			}
+			gameBag.getStaticMap().getCells()[hill.getY()][hill.getX()] = cell;
 		}
 	}
 	@Override
@@ -73,6 +90,7 @@ public class Server extends Agent{
 		 * каждые 5 ходов разбрасывается еда
 		 * каждые 5 ходов обновляется гуи
 		 */
+		
 		addBehaviour(mainBehavior);
 	}
 }

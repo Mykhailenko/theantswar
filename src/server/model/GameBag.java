@@ -10,6 +10,11 @@ public class GameBag {
 	private long olegLastN;
 	private int unbornGlebsAnt;
 	private int unbornOlegsAnt;
+	private int countOfGlebAnts;
+	private int countOfOlegAnts;
+	private int countOfGlebHills;
+	private int countOfOlegHills;
+	
 	
 	
 	public GameBag() {
@@ -17,6 +22,10 @@ public class GameBag {
 		olegLastN = 0;
 		unbornGlebsAnt = 0;
 		unbornOlegsAnt = 0;
+		countOfGlebAnts = 0;
+		countOfGlebHills = 0;
+		countOfOlegAnts = 0;
+		countOfOlegHills = 0;
 	}
 	
 	
@@ -92,5 +101,46 @@ public class GameBag {
 	public void setStaticMap(Map staticMap) {
 		this.staticMap = staticMap;
 	}
+
+
+	public int getCountOfGlebAnts() {
+		return countOfGlebAnts;
+	}
+
+
+	public void setCountOfGlebAnts(int countOfGlebAnts) {
+		this.countOfGlebAnts = countOfGlebAnts;
+	}
+
+
+	public int getCountOfOlegAnts() {
+		return countOfOlegAnts;
+	}
+
+
+	public void setCountOfOlegAnts(int countOfOlegAnts) {
+		this.countOfOlegAnts = countOfOlegAnts;
+	}
+
+
+	public int getCountOfGlebHills() {
+		return countOfGlebHills;
+	}
+
+
+	public void setCountOfGlebHills(int countOfGlebHills) {
+		this.countOfGlebHills = countOfGlebHills;
+	}
+
+
+	public int getCountOfOlegHills() {
+		return countOfOlegHills;
+	}
+
+
+	public void setCountOfOlegHills(int countOfOlegHills) {
+		this.countOfOlegHills = countOfOlegHills;
+	}
+	
 	
 }

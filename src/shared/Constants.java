@@ -11,5 +11,4 @@ public class Constants {
 	public static final String oleg = "OLEG";
 	public static final String glebAgentClassName = RandomAnt.class.getName();
 	public static final String olegAgentClassName = BaseAnt.class.getName();
-	public static final int INTERVAL = 1000;
 }
