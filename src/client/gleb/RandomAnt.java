@@ -5,12 +5,15 @@ import java.util.Random;
 import server.model.StepDirection;
 
 import client.BaseAnt;
+import client.gleb.vis.GameFrame;
 
 public class RandomAnt extends BaseAnt{
 	private static final long serialVersionUID = 8955629648617348488L;
+	GameFrame gameFrame;
 	@Override
 	protected void setup() {
 		System.out.println("I'm alive!!! My name is " + getLocalName());
+		gameFrame = new GameFrame();
 		Random random = new Random();
 		while(true){
 			StepDirection direction = StepDirection.STAY;
@@ -25,6 +28,7 @@ public class RandomAnt extends BaseAnt{
 				direction = StepDirection.UP;
 			}
 			makeStep(direction);
+			gameFrame.paint(getLocality().getCells());
 		}
 			
 	}

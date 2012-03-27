@@ -51,11 +51,13 @@ public class LocalityResponser {
 		
 		bottom = y + Constants.LOCALITY_SIZE;
 		bottom = bottom < Constants.MAP_SIZE ? bottom : Constants.MAP_SIZE - 1;
+		
+		System.out.println("x=" + x + ";y=" + y + "left=" + left + ";right=" + right + ";top=" + top + ";bottom=" + bottom);
 		server.model.Cell [][] serverCells = new server.model.Cell[bottom - top + 1][right - left + 1];
 		int i, j, k , l;
 		for(i = top, j = 0; i <= bottom ; ++i, ++j){
 			for(k = left, l = 0; k <= right; ++k, ++l){
-				serverCells[l][k] = gameBag.getStaticMap().getCells()[j][i];
+				serverCells[j][l] = gameBag.getStaticMap().getCells()[i][k];
 			}
 		}
 		List<AntCoockie> friends = Utility.getFriendsOfAnt(gameBag.getAntCoockies(), ant, Constants.LOCALITY_SIZE);

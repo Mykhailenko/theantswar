@@ -24,6 +24,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+import jade.wrapper.State;
 
 public class MainBehavior extends SimpleBehaviour {
 	private static final long serialVersionUID = 538601823417067372L;
@@ -247,8 +248,7 @@ public class MainBehavior extends SimpleBehaviour {
 			}else{
 				gameBag.setCountOfOlegAnts(gameBag.getCountOfOlegAnts() - 1);
 			}
-			gameBag.getAntCoockies().remove(ant);
-			
+			gameBag.getAntCoockies().remove(antName);
 		}
 	}
 	
@@ -291,7 +291,7 @@ public class MainBehavior extends SimpleBehaviour {
 	private void checkAndMaybeThrowFood() {
 		if(throwFoodCounter == 5){
 			List<Coordinate> freeCells = getAllFreeCells();
-			List<Coordinate> choosenCells = getOnlyNFromAll(8, freeCells);
+			List<Coordinate> choosenCells = getOnlyNFromAll(18, freeCells);
 			for(int i = 0; i < choosenCells.size(); ++i){
 				Coordinate pair = choosenCells.get(i);
 				gameBag.getStaticMap().getCells()[pair.getY()][pair.getX()].setType(Type.FOOD);
