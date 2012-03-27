@@ -7,11 +7,11 @@ import shared.Cell;
 public class GameFrame extends JFrame {
 	private static final long serialVersionUID = 4501676717595892172L;
 	private Map map;
-	public GameFrame() {
+	public GameFrame(String agentName) {
 		setLayout(null);
-		setTitle("The Ant Wars");
+		setTitle("Agent Name: " + agentName);
 		setResizable(false);
-		setBounds(100, 100, 450, 500);
+		setBounds(100, 100, 180, 130);
 		setVisible(true);
 		map = new Map();
 		map.setLocation(0, 30);

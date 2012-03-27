@@ -13,7 +13,7 @@ public class RandomAnt extends BaseAnt{
 	@Override
 	protected void setup() {
 		System.out.println("I'm alive!!! My name is " + getLocalName());
-		gameFrame = new GameFrame();
+		gameFrame = new GameFrame(getAID().getLocalName());
 		Random random = new Random();
 		while(true){
 			StepDirection direction = StepDirection.STAY;
@@ -28,6 +28,7 @@ public class RandomAnt extends BaseAnt{
 				direction = StepDirection.UP;
 			}
 			makeStep(direction);
+			getLocality();
 			gameFrame.paint(getLocality().getCells());
 		}
 			

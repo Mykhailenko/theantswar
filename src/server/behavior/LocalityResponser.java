@@ -2,7 +2,6 @@ package server.behavior;
 
 import java.io.IOException;
 import java.util.List;
-
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import server.Utility;
@@ -33,6 +32,7 @@ public class LocalityResponser {
 		try {
 			message.setContentObject(rfs);
 		} catch (IOException e) {
+			System.out.println("try to setContentObject: " + e);
 		}
 		return message;
 	}

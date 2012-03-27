@@ -24,7 +24,6 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
-import jade.wrapper.State;
 
 public class MainBehavior extends SimpleBehaviour {
 	private static final long serialVersionUID = 538601823417067372L;

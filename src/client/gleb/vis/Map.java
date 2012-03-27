@@ -16,7 +16,7 @@ public class Map extends JPanel{
 	private Color lineColor = Color.BLACK;
 	public Map() {
 		cells = null;
-		setSize(500, 500);
+		setSize(110, 110);
 		setBackground(backgroundColor);
 		
 	}
@@ -28,6 +28,9 @@ public class Map extends JPanel{
 	
 	@Override
 	public void paint(Graphics g) {
+		if(cells==null){
+			return;
+		}
 		int wcount = cells[0].length;
 		int hcount = cells.length;
 		int width = wcount * cellWidth;

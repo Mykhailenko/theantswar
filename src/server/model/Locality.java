@@ -1,8 +1,11 @@
 package server.model;
 
+import java.io.Serializable;
+
 import shared.Cell;
 
-public class Locality {
+public class Locality implements Serializable{
+	private static final long serialVersionUID = -3401066382538823534L;
 	private Cell [][] cells;
 	private int centerX;
 	private int centerY;

@@ -1,8 +1,5 @@
 package server.behavior;
 
-import jade.wrapper.AgentController;
-import jade.wrapper.StaleProxyException;
-
 import java.util.List;
 
 import server.Utility;

@@ -39,8 +39,13 @@ public class BaseAnt extends Agent{
 		} catch (UnreadableException e) {
 			e.printStackTrace();
 		}
-		Locality locality = responseObject.getLocality();
-		return locality;
+		if(responseObject == null){
+			System.out.println("responseObject == null");
+			return null;
+		}else{
+			Locality locality = responseObject.getLocality();
+			return locality;
+		}
 	}
 	protected final void makeStep(StepDirection direction){
 		StepToServer stepToServer = new StepToServer();
