@@ -47,7 +47,7 @@ public class Server extends Agent{
 		hi01.setX(35);
 		hi01.setY(38);
 		gameBag.getHillCoockies().add(hi01);
-		
+//		
 		HillCoockie hi1 = new HillCoockie();
 		hi1.setPlayerName(Constants.gleb);
 		hi1.setX(40);

@@ -28,7 +28,7 @@ public class RandomAnt extends BaseAnt{
 				direction = StepDirection.UP;
 			}
 			makeStep(direction);
-			getLocality();
+//			getLocality();
 			gameFrame.paint(getLocality().getCells());
 		}
 			

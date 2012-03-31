@@ -45,8 +45,7 @@ public class MainBehavior extends SimpleBehaviour {
 	}
 	@Override
 	public void action() {
-		
-		ACLMessage message = agent.receive();
+		ACLMessage message = agent.blockingReceive();
 		if(message != null){
 			System.out.println("Recieve!");
 			String antName = getAntName(message);
@@ -73,7 +72,6 @@ public class MainBehavior extends SimpleBehaviour {
 				} catch (UnreadableException e) {		}
 			}
 		}
-		block();
 	}
 	/**
 	 * первое. существует счетчик содержащий значение того сколоко ещё должно быть создано муравьев. 

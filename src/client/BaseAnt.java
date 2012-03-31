@@ -32,7 +32,9 @@ public class BaseAnt extends Agent{
 		}
 		lastRequest = System.currentTimeMillis();
 		send(message);
+		System.out.println(getLocalName() + " sentRequest");
 		ACLMessage resp = blockingReceive();
+		System.out.println(getLocalName() + " recieveResponse");
 		ResponseFromServer responseObject = null;
 		try {
 			responseObject = (ResponseFromServer) resp.getContentObject();
@@ -40,7 +42,6 @@ public class BaseAnt extends Agent{
 			e.printStackTrace();
 		}
 		if(responseObject == null){
-			System.out.println("responseObject == null");
 			return null;
 		}else{
 			Locality locality = responseObject.getLocality();
@@ -63,6 +64,7 @@ public class BaseAnt extends Agent{
 		}
 		lastStep = System.currentTimeMillis();
 		send(message);
+		System.out.println(getLocalName() + "sentStep");
 	}
 	protected final void sleep(long mls){
 		long start = System.currentTimeMillis();

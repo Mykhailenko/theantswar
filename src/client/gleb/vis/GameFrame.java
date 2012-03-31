@@ -9,12 +9,12 @@ public class GameFrame extends JFrame {
 	private Map map;
 	public GameFrame(String agentName) {
 		setLayout(null);
-		setTitle("Agent Name: " + agentName);
+		setTitle(agentName);
 		setResizable(false);
-		setBounds(100, 100, 180, 130);
+		setBounds(100, 100, 180, 160);
 		setVisible(true);
 		map = new Map();
-		map.setLocation(0, 30);
+		map.setLocation(10, 10);
 		add(map);
 	}
 	
