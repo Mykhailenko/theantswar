@@ -1,6 +1,7 @@
 package shared;
 
 import client.BaseAnt;
+import client.gleb.AwesomeAnt;
 import client.gleb.RandomAnt;
 
 public class Constants {
@@ -9,6 +10,6 @@ public class Constants {
 	public static final int MAP_SIZE = 100;
 	public static final String gleb = "GLEB";
 	public static final String oleg = "OLEG";
-	public static final String glebAgentClassName = RandomAnt.class.getName();
+	public static final String glebAgentClassName = AwesomeAnt.class.getName();
 	public static final String olegAgentClassName = BaseAnt.class.getName();
 }

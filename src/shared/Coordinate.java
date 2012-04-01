@@ -1,8 +1,8 @@
-package server.model;
+package shared;
 
 public class Coordinate {
-	private int x;
-	private int y;
+	public int x;
+	public int y;
 	
 	public Coordinate(int x, int y){
 		this.x = x;
@@ -25,5 +25,7 @@ public class Coordinate {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+	public int distance(Coordinate coordinate){
+		return Math.abs(this.x - coordinate.x) + Math.abs(this.y - coordinate.y);
+	}
 }

@@ -13,9 +13,9 @@ import server.model.HillCoockie;
 import server.model.Cell.Type;
 import server.model.GameBag;
 import server.model.Map;
-import server.model.Coordinate;
 import server.visual.GFrame;
 import shared.Constants;
+import shared.Coordinate;
 import shared.MessageToServer;
 import shared.StepToServer;
 import jade.core.Agent;
@@ -167,12 +167,12 @@ public class MainBehavior extends SimpleBehaviour {
 	}
 	@Override
 	public boolean done() {
-		if(somebodyWin()){
-			System.out.println("somebody win");
-			System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
-					"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
-			return true;
-		}
+//		if(somebodyWin()){
+//			System.out.println("somebody win");
+//			System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
+//					"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
+//			return true;
+//		}
 		return false;
 	}
 	private boolean somebodyWin() {
