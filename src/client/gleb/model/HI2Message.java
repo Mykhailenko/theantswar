@@ -1,19 +1,18 @@
 package client.gleb.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import shared.Coordinate;
 
-public class HiMessage implements Serializable{
-	private static final long serialVersionUID = -4528246873272207900L;
-	private List<FriendsInformation> friends;
+public class HI2Message implements GMessage{
+	private static final long serialVersionUID = 2770753792332743430L;
+	private List<Friend> friends;
 	private Coordinate whereIveSeenYou;
 	private String myNameIs;
-	public List<FriendsInformation> getFriends() {
+	public List<Friend> getFriends() {
 		return friends;
 	}
-	public void setFriends(List<FriendsInformation> friends) {
+	public void setFriends(List<Friend> friends) {
 		this.friends = friends;
 	}
 	public Coordinate getWhereIveSeenYou() {
@@ -28,5 +27,9 @@ public class HiMessage implements Serializable{
 	public void setMyNameIs(String myNameIs) {
 		this.myNameIs = myNameIs;
 	}
-	
+	@Override
+	public Type getType() {
+		return Type.HI2;
+	}
+
 }

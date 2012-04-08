@@ -2,7 +2,7 @@ package client.gleb.model;
 
 import java.io.Serializable;
 
-public class FriendsInformation implements Serializable{
+public class Friend implements Serializable{
 	private String antName;
 	private int currX;
 	private int currY;

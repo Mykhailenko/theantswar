@@ -12,14 +12,14 @@ import shared.Constants;
 import shared.Coordinate;
 import shared.Cell.Type;
 import client.BaseAnt;
-import client.gleb.model.FriendsInformation;
-import client.gleb.model.HiMessage;
+import client.gleb.model.Friend;
+import client.gleb.model.HI1Message;
 
 public class SmartAnt extends BaseAnt {
 	private static final long serialVersionUID = 1662137747436727013L;
 	private Cell [][] knownCells;
 	private Coordinate currentPosition;
-	private List<FriendsInformation> friends;
+	private List<Friend> friends;
 	public	SmartAnt() {
 		knownCells = new Cell[Constants.MAP_SIZE*2 + 1][Constants.MAP_SIZE*2 + 1];
 		for(int r = 0; r < Constants.MAP_SIZE*2+1; ++r){
@@ -30,7 +30,7 @@ public class SmartAnt extends BaseAnt {
 			}
 		}
 		currentPosition = new Coordinate(Constants.MAP_SIZE, Constants.MAP_SIZE);
-		friends = new ArrayList<FriendsInformation>();
+		friends = new ArrayList<Friend>();
 	}
 	@Override
 	protected void setup() {
@@ -63,7 +63,7 @@ public class SmartAnt extends BaseAnt {
 	}
 	
 	private boolean isNewFreinds(String antName) {
-		for(FriendsInformation fr : friends){
+		for(Friend fr : friends){
 			if(fr.getAntName().equals(antName)){
 				return false;
 			}
@@ -72,7 +72,7 @@ public class SmartAnt extends BaseAnt {
 	}
 	private void makeFriendship(String antName,Coordinate whereIsYou) {
 		sendHiToNewFriend(antName, whereIsYou);
-		FriendsInformation friend = new FriendsInformation();
+		Friend friend = new Friend();
 		friend.setAntName(antName);
 		friend.setCurrX(currentPosition.x);
 		friend.setCurrY(currentPosition.y);
@@ -82,7 +82,7 @@ public class SmartAnt extends BaseAnt {
 	private void sendHiToNewFriend(String antName,Coordinate whereIsYou) {
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 		message.addReceiver(new AID(antName,AID.ISLOCALNAME));
-		HiMessage hiMessage = new HiMessage();
+		HI1Message hiMessage = new HI1Message();
 		hiMessage.setMyNameIs(getLocalName());
 		hiMessage.setFriends(friends);
 		hiMessage.setWhereIveSeenYou(whereIsYou);

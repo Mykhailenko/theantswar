@@ -15,7 +15,7 @@ import jade.lang.acl.UnreadableException;
 public class BaseAnt extends Agent{
 	private long lastRequest = 0;
 	private long lastStep = 0;
-	private final static long INTERVAL = 1000;
+	public final static long INTERVAL = 1000;
 	private static final long serialVersionUID = 5526620659063148593L;
 	protected final static AID serverAID = new AID("Server", AID.ISLOCALNAME);
 	protected final Locality getLocality(){
