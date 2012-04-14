@@ -47,11 +47,9 @@ public class MainBehavior extends SimpleBehaviour {
 	public void action() {
 		ACLMessage message = agent.blockingReceive();
 		if(message != null){
-			System.out.println("Recieve!");
 			String antName = getAntName(message);
 			AntCoockie coockie = gameBag.getAntCoockies().get(antName);
 			if(coockie!=null){// если мурашка с таким именем существует
-				System.out.println("Exist!");
 				MessageToServer mts = null;
 				try {
 					mts = (MessageToServer) message.getContentObject();
@@ -66,9 +64,6 @@ public class MainBehavior extends SimpleBehaviour {
 					checkAndMaybePaintMap();
 					checkAndMaybeThrowFood();
 					createAnts();
-					System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
-							"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
-					
 				} catch (UnreadableException e) {		}
 			}
 		}
@@ -106,6 +101,7 @@ public class MainBehavior extends SimpleBehaviour {
 		try {
 			ac = agent.getContainerController().createNewAgent(antName, Constants.glebAgentClassName, null);
 		} catch (StaleProxyException e) {
+			System.out.println(e);
 		}
 		AntCoockie antCoockies = new AntCoockie();
 		antCoockies.setAntName(antName);
@@ -167,12 +163,12 @@ public class MainBehavior extends SimpleBehaviour {
 	}
 	@Override
 	public boolean done() {
-//		if(somebodyWin()){
-//			System.out.println("somebody win");
-//			System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
-//					"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
-//			return true;
-//		}
+		if(somebodyWin()){
+			System.out.println("somebody win");
+			System.out.println("ga: " + gameBag.getCountOfGlebAnts() + "; gh: " + gameBag.getCountOfGlebHills() + "; gu: " + gameBag.getUnbornGlebsAnt() +  
+					"; oa: " + gameBag.getCountOfOlegAnts() + "; oh: " + gameBag.getCountOfOlegHills() + "; ou: " + gameBag.getUnbornOlegsAnt());
+			return true;
+		}
 		return false;
 	}
 	private boolean somebodyWin() {
@@ -250,9 +246,6 @@ public class MainBehavior extends SimpleBehaviour {
 	}
 	
 	private void checkAndMaybePaintMap(){
-//		System.out.println("checkAndMaybePa " + repaintCounter);
-//		if(repaintCounter == 5){
-//			System.out.println("checkAndMaybePaintMap() " + gameBag.getAntCoockies().size());
 			Map detailMap = gameBag.getStaticMap().copy();
 			for(Iterator<java.util.Map.Entry<String, AntCoockie>> it = gameBag.getAntCoockies().entrySet().iterator();
 					it.hasNext(); ){
@@ -276,13 +269,8 @@ public class MainBehavior extends SimpleBehaviour {
 				}
 				
 			}
-			//////////////
-			//////////////
 			gFrame.paint(detailMap);
 			repaintCounter = 0;
-//		}else{
-//			++repaintCounter;
-//		}
 	}
 	
 	private void checkAndMaybeThrowFood() {

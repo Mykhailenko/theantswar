@@ -52,7 +52,6 @@ public class LocalityResponser {
 		bottom = y + Constants.LOCALITY_SIZE;
 		bottom = bottom < Constants.MAP_SIZE ? bottom : Constants.MAP_SIZE - 1;
 		
-		System.out.println("x=" + x + ";y=" + y + "left=" + left + ";right=" + right + ";top=" + top + ";bottom=" + bottom);
 		server.model.Cell [][] serverCells = new server.model.Cell[bottom - top + 1][right - left + 1];
 		int i, j, k , l;
 		for(i = top, j = 0; i <= bottom ; ++i, ++j){
@@ -81,8 +80,9 @@ public class LocalityResponser {
 				newCell1.setAntName(friend.getAntName());
 				newCell1.setPlayerName(friend.getPlayerName());
 				serverCells[ly][lx] = newCell1;
+				break;
 			default:
-				System.out.println("Ant Can't be on food or wall!");
+				System.out.println("Ant Can't be on food or wall!" +nativeCell.getType());
 				break;
 			}
 		}
@@ -108,7 +108,7 @@ public class LocalityResponser {
 				newCell1.setPlayerName(op.getPlayerName());
 				serverCells[ly][lx] = newCell1;
 			default:
-				System.out.println("Ant Can't be on food or wall!");
+				System.out.println("Ant AACan't be on food or wall!");
 				break;
 			}
 		}
@@ -133,6 +133,7 @@ public class LocalityResponser {
 						cell.setType(shared.Cell.Type.FRIEND_ANT_HILL);
 						cell.setAntName(ant.getAntName());
 						cell.setPlayerName(ant.getPlayerName());
+						cell.setHillName(sCell.getHillName());
 					}else{
 						cell.setType(shared.Cell.Type.ENEMY_ANT_HILL);
 					}
@@ -147,6 +148,7 @@ public class LocalityResponser {
 					if(sCell.getPlayerName().equals(ant.getPlayerName())){
 						cell.setType(shared.Cell.Type.FRIEND_HILL);
 						cell.setPlayerName(ant.getPlayerName());
+						cell.setHillName(sCell.getHillName());
 					}else{
 						cell.setType(shared.Cell.Type.ENEMY_HILL);
 					}

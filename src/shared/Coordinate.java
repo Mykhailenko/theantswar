@@ -30,4 +30,14 @@ public class Coordinate implements Serializable{
 	public int distance(Coordinate coordinate){
 		return Math.abs(this.x - coordinate.x) + Math.abs(this.y - coordinate.y);
 	}
+	@Override
+	public boolean equals(Object obj) {
+		Coordinate c = (Coordinate) obj;
+		if(c.x == x && c.y == y){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 }

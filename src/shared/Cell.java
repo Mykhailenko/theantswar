@@ -9,6 +9,7 @@ public class Cell implements Serializable {
 	}
 	private String antName;
 	private String playerName;
+	private String hillName;
 	private Type type;
 	public String getAntName() {
 		return antName;
@@ -31,6 +32,12 @@ public class Cell implements Serializable {
 			playerName = null;
 		}
 		this.type = type;
+	}
+	public String getHillName() {
+		return hillName;
+	}
+	public void setHillName(String hillName) {
+		this.hillName = hillName;
 	}
 	
 }

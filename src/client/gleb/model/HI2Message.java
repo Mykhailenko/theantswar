@@ -6,13 +6,16 @@ import shared.Coordinate;
 
 public class HI2Message implements GMessage{
 	private static final long serialVersionUID = 2770753792332743430L;
-	private List<Friend> friends;
+	private List<String> friends;
 	private Coordinate whereIveSeenYou;
+	private List<Coordinate> freeCells;
+	private List<Coordinate> wallCells;
+	private List<Coordinate> enemyHills;
 	private String myNameIs;
-	public List<Friend> getFriends() {
+	public List<String> getFriends() {
 		return friends;
 	}
-	public void setFriends(List<Friend> friends) {
+	public void setFriends(List<String> friends) {
 		this.friends = friends;
 	}
 	public Coordinate getWhereIveSeenYou() {
@@ -31,5 +34,23 @@ public class HI2Message implements GMessage{
 	public Type getType() {
 		return Type.HI2;
 	}
-
+	public List<Coordinate> getFreeCells() {
+		return freeCells;
+	}
+	public void setFreeCells(List<Coordinate> freeCells) {
+		this.freeCells = freeCells;
+	}
+	public List<Coordinate> getWallCells() {
+		return wallCells;
+	}
+	public void setWallCells(List<Coordinate> wallCells) {
+		this.wallCells = wallCells;
+	}
+	public List<Coordinate> getEnemyHills() {
+		return enemyHills;
+	}
+	public void setEnemyHills(List<Coordinate> enemyHills) {
+		this.enemyHills = enemyHills;
+	}
+	
 }

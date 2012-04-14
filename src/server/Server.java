@@ -40,24 +40,28 @@ public class Server extends Agent{
 		hi0.setPlayerName(Constants.oleg);
 		hi0.setX(50);
 		hi0.setY(40);
+		hi0.setHillName("oleg0");
 		gameBag.getHillCoockies().add(hi0);
 		
 		HillCoockie hi01 = new HillCoockie();
 		hi01.setPlayerName(Constants.oleg);
 		hi01.setX(35);
 		hi01.setY(38);
+		hi01.setHillName("oleg1");
 		gameBag.getHillCoockies().add(hi01);
 		
 		HillCoockie hi1 = new HillCoockie();
 		hi1.setPlayerName(Constants.gleb);
 		hi1.setX(40);
 		hi1.setY(40);
+		hi1.setHillName("gleb0");
 		gameBag.getHillCoockies().add(hi1);
 		
 		HillCoockie hi2 = new HillCoockie();
 		hi2.setPlayerName(Constants.gleb);
 		hi2.setX(43);
 		hi2.setY(43);
+		hi2.setHillName("gleb1");
 		gameBag.getHillCoockies().add(hi2);
 	}
 	/**
@@ -69,6 +73,7 @@ public class Server extends Agent{
 			Cell cell = new Cell();
 			cell.setType(Type.HILL);
 			cell.setPlayerName(hill.getPlayerName());
+			cell.setHillName(hill.getHillName());
 			if(hill.getPlayerName().equals(Constants.gleb)){
 				gameBag.setCountOfGlebHills(gameBag.getCountOfGlebHills() + 1);
 			}else{

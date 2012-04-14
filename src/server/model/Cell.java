@@ -11,6 +11,10 @@ public class Cell {
 				return "<wall>";
 			case ANT:
 				return "<ant>";
+			case FOOD:
+				return "<food>";
+			case HILL:
+				return "<hill>";
 			default:
 				return "<else>";
 			}
@@ -19,6 +23,7 @@ public class Cell {
 	}
 	private String antName;
 	private String playerName;
+	private String hillName;
 	private Type type;
 	public Cell copy() {
 		Cell cpy = new Cell();
@@ -57,6 +62,12 @@ public class Cell {
 			this.playerName = null;
 		}
 		this.type = type;
+	}
+	public String getHillName() {
+		return hillName;
+	}
+	public void setHillName(String hillName) {
+		this.hillName = hillName;
 	}
 	
 }

@@ -31,8 +31,6 @@ public class Map extends JPanel{
 	public void paint(Graphics g) {
 		int wcount = model.getW();
 		int hcount = model.getH();
-		System.out.println("in paint " + wcount);
-		
 		int width = wcount * cellWidth;
 		int height = hcount * cellHeight;
 		for(int i = 0; i < model.getW(); ++i){

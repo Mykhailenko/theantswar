@@ -32,9 +32,7 @@ public class BaseAnt extends Agent{
 		}
 		lastRequest = System.currentTimeMillis();
 		send(message);
-		System.out.println(getLocalName() + " sentRequest");
 		ACLMessage resp = blockingReceive();
-		System.out.println(getLocalName() + " recieveResponse");
 		ResponseFromServer responseObject = null;
 		try {
 			responseObject = (ResponseFromServer) resp.getContentObject();
@@ -64,9 +62,8 @@ public class BaseAnt extends Agent{
 		}
 		lastStep = System.currentTimeMillis();
 		send(message);
-		System.out.println(getLocalName() + "sentStep");
 	}
-	protected final void sleep(long mls){
+	public final void sleep(long mls){
 		long start = System.currentTimeMillis();
 		while(true){
 			long delta = System.currentTimeMillis() - start;

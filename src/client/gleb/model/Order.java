@@ -3,15 +3,12 @@ package client.gleb.model;
 public class Order implements GMessage {
 	private static final long serialVersionUID = 8769644617343853557L;
 
-	public enum OrderType {
-		PROTECTE_HILL, ATTACK, EAT;
-	};
 	private String marshal;
-	private OrderType orderType;
+	private GMessage.Type type;
 	
 	@Override
 	public Type getType() {
-		return Type.ORDER;
+		return type;
 	}
 
 	public String getMarshal() {
@@ -22,12 +19,8 @@ public class Order implements GMessage {
 		this.marshal = marshal;
 	}
 
-	public OrderType getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(OrderType orderType) {
-		this.orderType = orderType;
+	public void setType(GMessage.Type type) {
+		this.type = type;
 	}
 	
 }

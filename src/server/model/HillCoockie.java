@@ -2,6 +2,7 @@ package server.model;
 
 public class HillCoockie {
 	private String playerName;
+	private String hillName;
 	private int x;
 	private int y;
 	public String getPlayerName() {
@@ -21,6 +22,12 @@ public class HillCoockie {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	public String getHillName() {
+		return hillName;
+	}
+	public void setHillName(String hillName) {
+		this.hillName = hillName;
 	}
 	
 }
